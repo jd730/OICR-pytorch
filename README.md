@@ -2,7 +2,7 @@
 
 ## How to Start
 
-`git clone http://www.github.com/jd730/OICR_pytorch`
+`git clone http://www.github.com/jd730/OICR-pytorch`
 
 ### Dependencies
 
@@ -60,7 +60,7 @@ More details about setting the architecture can be found [here](https://develope
 
 `tile_layer/` and `cbp_layer/` are related to compact bilinear pooling.
 
-`model/` includes network and `roi_align/crop/pooling`.
+`model/` includes network and `roi_align,crop,pooling`.
 
 In `model/oicr*/` there are two files. One is vgg network which assign each layers and the other is oicr class which decides how to make a forward and how network is composed of.
 
@@ -88,5 +88,3 @@ plot_reward_curve_seborn(file_path, mavg=True, mavg_v=1, n=N, target_field='midn
 https://github.com/ppengtang/oicr
 
 https://github.com/jwyang/faster-rcnn.pytorch
-
-https://github.com/gdlg/pytorch_compact_bilinear_pooling
