@@ -44,6 +44,10 @@ More details about setting the architecture can be found [here](https://develope
 2. Compile th ecuda dependencies
 `cd lib & sh make.sh`
 
+## Performance
+
+![test score](assets/table.png)
+
 
 ## Library description
 `trainval_net.py` : main training code.
