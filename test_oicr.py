@@ -28,6 +28,8 @@ from model.utils.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from model.nms.nms_wrapper import nms
 from model.utils.net_utils import save_net, load_net, vis_detections, vis_gts
 from model.oicr.vgg16_oicr import vgg16_oicr
+
+import model.utils.logger as logger
 #from model.oicr.test import test_net
 
 # test.py
@@ -340,6 +342,7 @@ if __name__ == '__main__':
     output_dir_map = os.path.join(output_dir, 'map')
     output_dir_corloc = os.path.join(output_dir, 'corloc')
     output_dir_vis = os.path.join(output_dir, 'images')
+    logger.configure(dir=output_dir)
     print(output_dir)
     if not os.path.exists(output_dir_map):
         os.makedirs(output_dir_map)
@@ -365,12 +368,6 @@ if __name__ == '__main__':
 
     if args.model == 'oicr' :
         OICR = vgg16_oicr(imdb.classes, pretrained=False, class_agnostic=args.class_agnostic)
-    elif args.model == 'oicr_cbp_v2' :
-        from model.oicr_cbp_v2.vgg16_oicr_cbp import vgg16_oicr_cbp
-        OICR = vgg16_oicr_cbp(imdb.classes, pretrained=False, class_agnostic=args.class_agnostic)
-    elif args.model == 'oicr_cbp' :
-        from model.oicr_cbp.vgg16_oicr_cbp import vgg16_oicr_cbp
-        OICR = vgg16_oicr_cbp(imdb.classes, pretrained=False, class_agnostic=args.class_agnostic)
     else : 
         raise Exception("Model does not exist")
 
@@ -579,8 +576,8 @@ if __name__ == '__main__':
     print('Applying NMS to all detections')
     nms_dets = apply_nms(all_boxes, cfg.TEST.NMS)
     
-    print('Evaluating detections')
+    logger.log('Evaluating detections')
     imdb.evaluate_detections(nms_dets, output_dir_map)
     
-    print('Evaluating CorLoc')
+    logger.log('Evaluating CorLoc')
     imdb.evaluate_discovery(all_boxes_corloc, output_dir_corloc)
