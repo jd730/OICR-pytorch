@@ -60,8 +60,6 @@ More details about setting the architecture can be found [here](https://develope
 
 `roi_data_layer/` : loading batch, making roidb and minibatch
 
-`tile_layer/` and `cbp_layer/` are related to compact bilinear pooling.
-
 `model/` includes network and `roi_align,crop,pooling`.
 
 In `model/oicr*/` there are two files. One is vgg network which assign each layers and the other is oicr class which decides how to make a forward and how network is composed of.
