@@ -1,4 +1,6 @@
-# OICR
+# PyTorch Implementation of Multiple Instance Detection Network with Online Instance Classifier Refinement (OICR)
+
+[paper](https://arxiv.org/abs/1704.00138)
 
 ## How to Start
 
@@ -83,6 +85,10 @@ plot_reward_curve_seborn(file_path, mavg=True, mavg_v=1, n=N, target_field='midn
 
 ### Testing 
 `CUDA_VISIBLE_DEVICES=2 python3 test_oicr.py --dataset pascal_voc --net vgg16  --checkpoint 70000  --load_dir='output' --cuda --model='oicr'--vis`
+
+## Notice
+`bs` (batch_size) should be divisable by 2. On Caffe, batch is defined as how many forward operations before bacward, and the it does not divide the accumulated loss. To follow this definition and improve the performance, my code automatically forward twice and backward once without divison. See [here](https://github.com/jd730/OICR-pytorch/blob/54921e5c6f88dba7027a7b13b26ffe4adc4aec66/trainval_net.py#L404)
+
 
 ## Reference
 https://github.com/ppengtang/oicr
