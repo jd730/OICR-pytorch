@@ -296,6 +296,10 @@ if __name__ == '__main__':
         args.imdb_name = "voc_2007_trainval"
         args.imdbval_name = "voc_2007_test"
         args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]']
+    elif args.dataset == "pascal_voc_2012":
+        args.imdb_name = "voc_2012_trainval"
+        args.imdbval_name = "voc_2012_test"
+        args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]']
     elif args.dataset == "pascal_voc_0712":
         args.imdb_name = "voc_2007_trainval+voc_2012_trainval"
         args.imdbval_name = "voc_2007_test"
@@ -479,7 +483,7 @@ if __name__ == '__main__':
                     keep = nms(torch.FloatTensor(all_boxes[j][i]).cuda(), 0.3)
                     cls_det = torch.FloatTensor(all_boxes[j][i]).cuda()
                     cls_det = cls_det[keep.view(-1).long()]
-                    if j==0 :
+                    if j==0 and  ('2012' not in args.dataset):
                         im2show = vis_gts (im, imdb.image_path_at(i))
                     im2show = vis_detections(im, imdb.classes[j], all_boxes[j][i][keep.view(-1).long()],0)
                 except : 

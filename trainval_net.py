@@ -76,7 +76,7 @@ def parse_args():
                        help='whether use multiple GPUs',
                        action='store_true')
     parser.add_argument('--bs', dest='batch_size',
-                       help='batch_size',
+                       help='batch_size, this should be 2n',
                        default=1, type=int)
     parser.add_argument('--cag', dest='class_agnostic',
                        help='whether perform class_agnostic bbox regression',
@@ -184,6 +184,10 @@ if __name__ == '__main__':
         args.imdb_name = "voc_2007_trainval"
         args.imdbval_name = "voc_2007_trainval"
         args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES', '20']
+    if args.dataset == "pascal_voc_2012":
+        args.imdb_name = "voc_2012_trainval"
+        args.imdbval_name = "voc_2012_trainval"
+        args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES', '20']
     elif args.dataset == "pascal_voc_0712":
         args.imdb_name = "voc_2007_trainval+voc_2012_trainval"
         args.imdbval_name = "voc_2007_test"
@@ -236,6 +240,16 @@ if __name__ == '__main__':
             ma = l
     print(ma,mi)
     print('{:d} roidb entries'.format(len(roidb)))
+
+    if args.batch_size % 2 is not 0 :
+        raise Exception("batch size should be devisable by 2")
+    # this is because original implementation is based on caffe.
+    # the batchsize 2 on caffe is defined as two forward and backward once.
+    # Theoratically, if then, the loss should be divided by 2.
+    # However, since caffe does not, and it weaken the performance,
+    # I set forward twice and backward once as default.
+    
+    args.batch_size /=2 
 
     output_dir = args.save_dir + "/" + args.net + "/" + args.dataset
     if args.load_dir is None :
@@ -414,6 +428,8 @@ if __name__ == '__main__':
                 loss_oc3_temp += oc3.item()
                 # backward
                 #loss /= 2 #digit #args.batch_size  # see https://discuss.pytorch.org/t/pytorch-gradients/884
+                # theoratically should be, but for performance and following original implementation,
+                # should not be.
                 loss.backward(retain_graph=True)
             total_step +=1
             # batch end
