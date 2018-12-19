@@ -242,14 +242,14 @@ if __name__ == '__main__':
     print('{:d} roidb entries'.format(len(roidb)))
 
     if args.batch_size % 2 is not 0 :
-        raise Exception("batch size should be devisable by 2")
+        raise Exception("batch size should be 2*N")
     # this is because original implementation is based on caffe.
     # the batchsize 2 on caffe is defined as two forward and backward once.
     # Theoratically, if then, the loss should be divided by 2.
     # However, since caffe does not, and it weaken the performance,
     # I set forward twice and backward once as default.
     
-    args.batch_size /=2 
+    args.batch_size //=2 
 
     output_dir = args.save_dir + "/" + args.net + "/" + args.dataset
     if args.load_dir is None :
@@ -261,9 +261,13 @@ if __name__ == '__main__':
     sampler_batch = sampler(train_size, args.batch_size)
     dataset = roibatchLoader(roidb, ratio_list, ratio_index, args.batch_size,\
                             imdb.num_classes, training=True)
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size= args.batch_size,
+    if args.batch_size > 2 :
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size= args.batch_size,
                             sampler=sampler_batch, num_workers=args.num_workers,
                             collate_fn=collate_fn) # collate_fn is for multi-GPU
+    else : # this will be refactored.
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size= args.batch_size,
+                           sampler=sampler_batch, num_workers=args.num_workers)
 
     # initilize the tensor holder here.
     im_data = torch.FloatTensor(1)
@@ -428,8 +432,6 @@ if __name__ == '__main__':
                 loss_oc3_temp += oc3.item()
                 # backward
                 #loss /= 2 #digit #args.batch_size  # see https://discuss.pytorch.org/t/pytorch-gradients/884
-                # theoratically should be, but for performance and following original implementation,
-                # should not be.
                 loss.backward(retain_graph=True)
             total_step +=1
             # batch end
