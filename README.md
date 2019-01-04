@@ -50,6 +50,10 @@ More details about setting the architecture can be found [here](https://develope
 
 ![test score](assets/table.png)
 
+![qualitative result](assets/qual.png)
+Green rectangulars are the results of OICR and yellow rectangulars are ground truth.
+
+
 
 ## Library description
 `trainval_net.py` : main training code.
