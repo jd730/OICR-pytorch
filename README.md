@@ -79,10 +79,10 @@ plot_reward_curve_seborn(file_path, mavg=True, mavg_v=1, n=N, target_field='midn
 
 
 ## Run Example
-### Training
+### Training (multi GPU)
 `CUDA_VISIBLE_DEVICES=1,2  python3 trainval_net.py --dataset pascal_voc --net vgg16 \
           --bs 2 --nw 4 --save_dir='output' --model='oicr' \
-           --lr 0.001 --cuda --oicr --disp_interval 50 --mGPUs --vis \
+           --lr 0.001 --cuda --disp_interval 50 --mGPUs --vis \
            --checkpoint_interval=500`
 
 ### Testing 
