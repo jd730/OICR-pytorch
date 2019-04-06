@@ -16,6 +16,14 @@
 
 * **PASCAL_VOC 07+12**: Please follow the instructions in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models) to prepare VOC datasets. Actually, you can refer to any others. After downloading the data, creat softlinks in the folder data/.
 
+### Selective Search
+```
+wget https://dl.dropboxusercontent.com/s/orrt7o6bp6ae0tc/selective_search_data.tgz
+tar -xvf selective_search_data.tgz
+rm -rf selective_search_data.tgz
+```
+move `selective_search_data` folder into `data` folder.
+
 ### Pretrained Model
 
 * VGG16: [Dropbox](https://www.dropbox.com/s/s3brpk0bdq60nyb/vgg16_caffe.pth?dl=0), [VT Server](https://filebox.ece.vt.edu/~jw2yang/faster-rcnn/pretrained-base-models/vgg16_caffe.pth)
