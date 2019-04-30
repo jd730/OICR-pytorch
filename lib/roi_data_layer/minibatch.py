@@ -15,7 +15,6 @@ import numpy.random as npr
 import cv2
 from model.utils.config import cfg
 from model.utils.blob import prep_im_for_blob, im_list_to_blob, prep_gt_for_blob, gt_list_to_blob
-from model.utils.cmap import color_map
 import pdb
 import time
 from PIL import Image
