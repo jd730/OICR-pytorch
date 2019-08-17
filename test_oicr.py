@@ -214,7 +214,7 @@ def im_detect(net, im, boxes):
         LIM = 2000 # split ROIs due to memory issue
         if cfg.TEST.USE_FLIPPED :
             blobs['data'][i] = blobs['data'][i][:, :,  ::-1, :]
-            width = blobs['data'][i].shape[3]
+            width = blobs['data'][i].shape[2]
             t_data = blobs['data'][i].astype(np.float32, copy=False)
             data_height, data_width = t_data.shape[1], t_data.shape[2]
             #im_data = torch.FloatTensor(t_data).cuda()
@@ -482,7 +482,7 @@ if __name__ == '__main__':
                     cls_det = cls_det[keep.view(-1).long()]
                     if j==0 and  ('2012' not in args.dataset):
                         im2show = vis_gts (im, imdb.image_path_at(i))
-                    im2show = vis_detections(im, imdb.classes[j], all_boxes[j][i][keep.view(-1).long()],0)
+                    im2show = vis_detections(im, imdb.classes[j], all_boxes[j][i][keep.view(-1).long()],0.8)
                 except : 
                     error_flag = True
                     pdb.set_trace()
