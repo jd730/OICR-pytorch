@@ -33,6 +33,7 @@ def check_nan (var) :
 
 
 def WeightedSoftmaxWithLoss(prob, labels_ic, cls_loss_weights, eps = 1e-6):
+    pdb.set_trace()
     loss = (labels_ic * torch.log(prob + eps))
     loss = loss.sum(dim=2)
     loss = -cls_loss_weights * loss 
@@ -82,8 +83,6 @@ class _OICR(nn.Module):
         rois = Variable(rois)
         # do roi pooling based on predicted rois
 
-        #cfg.POOLING_MODE = 'pool'
-        cfg.POOLING_MODE = 'pool'
         if cfg.POOLING_MODE == 'crop':
             # pdb.set_trace()
             # pooled_feat_anchor = _crop_pool_layer(base_feat, rois.view(-1, 5))
