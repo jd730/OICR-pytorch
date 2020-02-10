@@ -261,7 +261,7 @@ if __name__ == '__main__':
     sampler_batch = sampler(train_size, args.batch_size)
     dataset = roibatchLoader(roidb, ratio_list, ratio_index, args.batch_size,\
                             imdb.num_classes, training=True)
-    if args.batch_size > 2 :
+    if args.batch_size >= 2 :
         dataloader = torch.utils.data.DataLoader(dataset, batch_size= args.batch_size,
                             sampler=sampler_batch, num_workers=args.num_workers,
                             collate_fn=collate_fn) # collate_fn is for multi-GPU
