@@ -33,7 +33,6 @@ def check_nan (var) :
 
 
 def WeightedSoftmaxWithLoss(prob, labels_ic, cls_loss_weights, eps = 1e-6):
-    pdb.set_trace()
     loss = (labels_ic * torch.log(prob + eps))
     loss = loss.sum(dim=2)
     loss = -cls_loss_weights * loss 
