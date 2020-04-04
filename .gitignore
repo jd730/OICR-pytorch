@@ -1,0 +1,14 @@
+results/
+**/__pycahe__/*
+**/log*/
+data/
+*.sh
+models/
+images/
+*.sw[po]
+*.pyc
+*checkpoints*
+*.cu.o
+*.so
+output/
+data*
