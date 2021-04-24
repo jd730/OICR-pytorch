@@ -40,7 +40,8 @@ As pointed out by [ruotianluo/pytorch-faster-rcnn](https://github.com/ruotianluo
 
   | GPU model  | Architecture |
   | ------------- | ------------- |
-  | TitanX (Maxwell/Pascal) | sm_52 |
+  | TitanX (Maxwell) | sm_52 |
+    | TitanX (Pascal) | sm_61 |
   | TitanV or V100 | sm_70 |
   | GTX 960M | sm_50 |
   | GTX 1080 (Ti) | sm_61 |
